@@ -81,6 +81,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   double currentPage = 0.0;
   final _pageViewController = new PageController();
+  
+  @override
+  void initState() {
+    super.initState();
+    _pageViewController.addListener(() {
+      setState(() {
+        currentPage = _pageViewController.page;
+      });
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,11 +102,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               controller: _pageViewController,
               itemCount: slides.length,
               itemBuilder: (BuildContext context, int index) {
-                _pageViewController.addListener(() {
-                  setState(() {
-                    currentPage = _pageViewController.page;
-                  });
-                });
                 return slides[index];
               },
             ),
